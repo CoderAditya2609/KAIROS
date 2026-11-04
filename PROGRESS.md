@@ -9,7 +9,9 @@ One sitting per session. Stop after each sitting until the user types `next sitt
 - [x] 3. index.html + CSS: background, scanlines, corner brackets, HUD text
 - [x] 4. orb.js: canvas orb, 7 states, eased colors, debug keys 1-7
 - [x] 5. boot.js: five-phase boot with status log and skip
-- [ ] 6. kairos.bat launcher
+- [x] 6. kairos.bat launcher
+
+NEXT: Sitting 2 task 1 — store/ atomic JSON module.
 
 ## Sitting 2 — data + plan engine + check-in (no AI)
 - [ ] 1. store/ atomic JSON, first-run copy, corrupt-file recovery
