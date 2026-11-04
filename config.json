@@ -1,0 +1,21 @@
+{
+  "port": 4747,
+  "debug": true,
+  "name": "Blaze",
+  "plan": {
+    "backlogPerDay": 3,
+    "staples": ["Revise today's live class"]
+  },
+  "voice": {
+    "language": "en-IN",
+    "voiceName": null
+  },
+  "providers": {
+    "modelOverride": {
+      "groq": null,
+      "nvidia": null,
+      "mistral": null,
+      "openrouter": null
+    }
+  }
+}
