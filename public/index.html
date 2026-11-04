@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>K.A.I.R.O.S.</title>
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/hud.css" />
+  </head>
+  <body>
+    <canvas id="stage" aria-hidden="true"></canvas>
+    <div class="scanlines" aria-hidden="true"></div>
+
+    <div class="brackets" aria-hidden="true">
+      <span class="bracket bracket-tl"></span>
+      <span class="bracket bracket-tr"></span>
+      <span class="bracket bracket-bl"></span>
+      <span class="bracket bracket-br"></span>
+    </div>
+
+    <div class="hud">
+      <header class="hud-topleft">
+        <h1 class="title">K.A.I.R.O.S.</h1>
+        <p class="subtitle">The right moment, planned</p>
+      </header>
+
+      <div class="hud-topright">
+        <span class="status-dot" id="statusDot"></span>
+        <span class="status-text" id="statusText">BOOTING</span>
+      </div>
+
+      <aside class="hud-left">
+        <p class="label">Systems</p>
+        <ul class="systems" id="systems">
+          <li class="systems-none">None linked</li>
+        </ul>
+      </aside>
+
+      <aside class="hud-right">
+        <p class="label">Signal</p>
+        <div class="signal-bar"><span class="signal-fill" id="signalFill"></span></div>
+        <p class="signal-value" id="signalValue">0%</p>
+      </aside>
+
+      <div class="hud-bottom">
+        <p class="message" id="message"></p>
+        <p class="suggestion" id="suggestion">&ldquo;tell me what kind of day it is&rdquo;</p>
+        <div class="hotkeys">
+          <span class="hotkey"><b>SPACE</b> to talk</span>
+          <span class="hotkey"><b>C</b> text</span>
+          <span class="hotkey"><b>V</b> voice: <i id="voiceName">&mdash;</i></span>
+          <span class="hotkey"><b>M</b> mute</span>
+        </div>
+      </div>
+    </div>
+
+    <ul class="bootlog" id="bootlog" aria-live="polite"></ul>
+
+    <script type="module" src="js/app.js"></script>
+  </body>
+</html>

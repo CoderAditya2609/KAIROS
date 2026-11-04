@@ -1,0 +1,251 @@
+.hud {
+  position: fixed;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 1100ms ease;
+}
+
+body.online .hud {
+  opacity: 1;
+}
+
+.label,
+.status-text,
+.subtitle,
+.systems,
+.signal-value,
+.hotkeys,
+.bootlog {
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  font-weight: 400;
+}
+
+/* Top-left: title and subtitle. */
+.hud-topleft {
+  position: absolute;
+  top: calc(var(--edge) + 10px);
+  left: calc(var(--edge) + 14px);
+}
+
+.title {
+  margin: 0;
+  font-size: clamp(17px, 1.9vw, 27px);
+  font-weight: 300;
+  letter-spacing: 0.42em;
+  color: rgba(150, 235, 228, 0.6);
+  text-shadow: 0 0 18px rgba(25, 211, 196, 0.25);
+}
+
+.subtitle {
+  margin: 8px 0 0;
+  font-size: 9px;
+  letter-spacing: 0.34em;
+  color: var(--ink-soft);
+}
+
+/* Top-right: status dot and text. */
+.hud-topright {
+  position: absolute;
+  top: calc(var(--edge) + 16px);
+  right: calc(var(--edge) + 14px);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--teal);
+  box-shadow: 0 0 10px currentColor;
+  color: var(--teal);
+  transition: background 600ms ease, color 600ms ease;
+}
+
+.status-text {
+  font-size: 9px;
+  color: var(--ink);
+}
+
+/* Left, mid-height: systems. */
+.hud-left {
+  position: absolute;
+  top: 50%;
+  left: calc(var(--edge) + 14px);
+  transform: translateY(-50%);
+  width: 150px;
+}
+
+.hud-left .label {
+  margin: 0 0 12px;
+  font-size: 9px;
+  color: var(--ink-soft);
+}
+
+.systems {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  line-height: 2.1;
+  color: var(--ink-soft);
+}
+
+.systems li {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.systems li::before {
+  content: "\2022";
+  opacity: 0.5;
+}
+
+.systems li.active::before {
+  content: "\25C6";
+  opacity: 1;
+  color: var(--teal);
+}
+
+.systems li.cooling {
+  opacity: 0.45;
+}
+
+/* Right, mid-height: signal bar. */
+.hud-right {
+  position: absolute;
+  top: 50%;
+  right: calc(var(--edge) + 14px);
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.hud-right .label {
+  margin: 0;
+  font-size: 9px;
+  color: var(--ink-soft);
+}
+
+.signal-bar {
+  position: relative;
+  width: 3px;
+  height: clamp(58px, 9vh, 92px);
+  overflow: hidden;
+  background: rgba(140, 226, 219, 0.12);
+}
+
+.signal-fill {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 0%;
+  background: var(--teal);
+  box-shadow: 0 0 8px rgba(25, 211, 196, 0.6);
+  transition: height 120ms linear, background 600ms ease;
+}
+
+.signal-value {
+  margin: 0;
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  color: var(--ink-soft);
+}
+
+/* Bottom: message, suggestion, hotkeys. */
+.hud-bottom {
+  position: absolute;
+  left: 50%;
+  bottom: calc(var(--edge) + 6px);
+  transform: translateX(-50%);
+  width: min(92vw, 900px);
+  text-align: center;
+}
+
+.message {
+  margin: 0 0 18px;
+  min-height: 2.1em;
+  font-size: clamp(15px, 1.5vw, 21px);
+  line-height: 1.5;
+  letter-spacing: 0.05em;
+  color: rgba(206, 250, 248, 0.82);
+  text-shadow: 0 0 22px rgba(25, 211, 196, 0.2);
+  transition: opacity 700ms ease;
+}
+
+.message.fading {
+  opacity: 0;
+}
+
+.suggestion {
+  margin: 0 0 16px;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: rgba(150, 235, 228, 0.55);
+}
+
+.hotkeys {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 18px;
+  font-size: 8px;
+  letter-spacing: 0.24em;
+  color: var(--ink-soft);
+}
+
+.hotkey {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.hotkey b,
+.hotkey i {
+  font-style: normal;
+  font-weight: 400;
+}
+
+.hotkey b {
+  padding: 3px 7px;
+  border: 1px solid rgba(140, 226, 219, 0.22);
+  border-radius: 3px;
+  font-size: 8px;
+  color: rgba(150, 235, 228, 0.5);
+}
+
+/* Boot status log, lower-left. */
+.bootlog {
+  position: fixed;
+  left: calc(var(--edge) + 14px);
+  bottom: calc(var(--edge) + 4px);
+  z-index: 5;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-family: Consolas, monospace;
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  line-height: 1.9;
+  color: rgba(140, 226, 219, 0.45);
+  transition: opacity 1400ms ease;
+}
+
+.bootlog li.offline {
+  color: rgba(255, 120, 130, 0.6);
+}
+
+/* The log belongs to the boot only; it must not crowd the idle screen. */
+.bootlog.done {
+  opacity: 0;
+  pointer-events: none;
+}

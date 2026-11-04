@@ -1,0 +1,111 @@
+:root {
+  --bg: #02080c;
+  --teal: #19d3c4;
+  --teal-bright: #7ff3ff;
+  --ink: rgba(140, 226, 219, 0.42);
+  --ink-soft: rgba(140, 226, 219, 0.24);
+  --ink-line: rgba(140, 226, 219, 0.3);
+  --font-hud: "Segoe UI", "Bahnschrift", Consolas, monospace;
+  --edge: clamp(14px, 2.2vw, 34px);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  background: var(--bg);
+}
+
+body {
+  font-family: var(--font-hud);
+  color: var(--ink);
+  cursor: default;
+  user-select: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Orb and particle field. */
+#stage {
+  position: fixed;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Faint CRT texture over everything. */
+.scanlines {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(180, 255, 250, 0.018) 0 1px,
+    rgba(0, 0, 0, 0) 1px 3px
+  );
+  opacity: 0.5;
+}
+
+/* Darkened edges so the orb reads as the light source. */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background: radial-gradient(
+    ellipse at 50% 50%,
+    rgba(0, 0, 0, 0) 42%,
+    rgba(0, 0, 0, 0.55) 100%
+  );
+}
+
+/* Four thin corner brackets framing the window. */
+.bracket {
+  position: fixed;
+  width: clamp(22px, 3.4vw, 46px);
+  height: clamp(22px, 3.4vw, 46px);
+  z-index: 3;
+  pointer-events: none;
+  border: 0 solid var(--ink-line);
+  opacity: 0;
+  transition: opacity 900ms ease;
+}
+
+.bracket-tl {
+  top: var(--edge);
+  left: var(--edge);
+  border-top-width: 1px;
+  border-left-width: 1px;
+}
+
+.bracket-tr {
+  top: var(--edge);
+  right: var(--edge);
+  border-top-width: 1px;
+  border-right-width: 1px;
+}
+
+.bracket-bl {
+  bottom: var(--edge);
+  left: var(--edge);
+  border-bottom-width: 1px;
+  border-left-width: 1px;
+}
+
+.bracket-br {
+  bottom: var(--edge);
+  right: var(--edge);
+  border-bottom-width: 1px;
+  border-right-width: 1px;
+}
+
+body.online .bracket {
+  opacity: 1;
+}
