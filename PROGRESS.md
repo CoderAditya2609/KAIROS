@@ -5,7 +5,7 @@ One sitting per session. Stop after each sitting until the user types `next sitt
 
 ## Sitting 1 — shell, look, orb, boot
 - [x] 1. Folder layout, package.json, .gitignore, PROGRESS.md, README stub, .env.example, config.json, data.example/
-- [ ] 2. Express server on port 4747, serves public/, GET /api/health
+- [x] 2. Express server on port 4747, serves public/, GET /api/health
 - [ ] 3. index.html + CSS: background, scanlines, corner brackets, HUD text
 - [ ] 4. orb.js: canvas orb, 7 states, eased colors, debug keys 1-7
 - [ ] 5. boot.js: five-phase boot with status log and skip
