@@ -165,6 +165,74 @@ export function createOrb(canvas) {
     return g;
   }
 
+  /**
+   * The lit body of the orb, drawn inside the wobbly silhouette.
+   * rim(rho) = pow(1 - sqrt(1 - rho^2), 3) is the fresnel term for a sphere
+   * seen head-on, so the glow concentrates at the edge and the middle stays dark.
+   */
+  function drawSphere(time, alpha, amp, ripple, lightX, lightY) {
+    const path = outerPath(time, 0.985, amp, ripple);
+    ctx.save();
+    ctx.clip(path);
+
+    // Dark glass body.
+    ctx.fillStyle = rgba(deepen(color, 0.78), 0.62 * alpha);
+    ctx.fill(path);
+
+    // Fresnel edge glow.
+    const bright = lighten(color, 0.45);
+    const fres = ctx.createRadialGradient(cx, cy, radius * 0.2, cx, cy, radius);
+    for (let i = 0; i <= 8; i += 1) {
+      const rho = i / 8;
+      const rim = Math.pow(1 - Math.sqrt(Math.max(0, 1 - rho * rho)), 3);
+      fres.addColorStop(rho, rgba(bright, rim * 0.85 * alpha));
+    }
+    ctx.fillStyle = fres;
+    ctx.fill(path);
+
+    // Directional light from the lower-left, plus the shadow on the far side.
+    const lit = ctx.createRadialGradient(
+      cx + lightX * radius,
+      cy + lightY * radius,
+      radius * 0.05,
+      cx + lightX * radius,
+      cy + lightY * radius,
+      radius * 1.25,
+    );
+    lit.addColorStop(0, rgba(lighten(color, 0.6), 0.22 * alpha));
+    lit.addColorStop(0.45, rgba(lighten(color, 0.2), 0.08 * alpha));
+    lit.addColorStop(1, rgba(color, 0));
+    ctx.fillStyle = lit;
+    ctx.fill(path);
+
+    const shade = ctx.createRadialGradient(
+      cx - lightX * radius * 0.8,
+      cy - lightY * radius * 0.8,
+      radius * 0.1,
+      cx - lightX * radius * 0.8,
+      cy - lightY * radius * 0.8,
+      radius * 1.2,
+    );
+    shade.addColorStop(0, rgba([0, 6, 10], 0.5 * alpha));
+    shade.addColorStop(0.6, rgba([0, 6, 10], 0.18 * alpha));
+    shade.addColorStop(1, rgba([0, 6, 10], 0));
+    ctx.fillStyle = shade;
+    ctx.fill(path);
+
+    // Specular hot-spot orbiting just inside the rim.
+    const specAngle = time * 0.22 + Math.atan2(lightY, lightX);
+    const sx = cx + Math.cos(specAngle) * radius * 0.72;
+    const sy = cy + Math.sin(specAngle) * radius * 0.72;
+    const spec = ctx.createRadialGradient(sx, sy, 0, sx, sy, radius * 0.34);
+    spec.addColorStop(0, rgba([235, 255, 255], 0.3 * alpha));
+    spec.addColorStop(0.5, rgba(lighten(color, 0.6), 0.09 * alpha));
+    spec.addColorStop(1, rgba(color, 0));
+    ctx.fillStyle = spec;
+    ctx.fill(path);
+
+    ctx.restore();
+  }
+
   function drawOuterRing(time, alpha, amp, ripple, broken) {
     const bright = lighten(color, 0.68);
     const mid = deepen(color, 0.05);
@@ -340,6 +408,7 @@ export function createOrb(canvas) {
   function drawBody(time, spin, boost, ripple, broken, outerAlpha, amp, scale) {
     drawHalo(outerAlpha, scale);
     drawBloom(outerAlpha);
+    drawSphere(time, outerAlpha, amp, ripple, -0.38, 0.42);
     drawOuterRing(time, outerAlpha, amp, ripple, broken);
     drawCore(1, time);
     drawThinRings(THIN_RINGS, time, spin, boost);
@@ -378,6 +447,7 @@ export function createOrb(canvas) {
     drawInnerRings(time, 1, 1);
     drawHalo(alpha, 1);
     drawBloom(alpha);
+    drawSphere(time, alpha, settled, 0, -0.38, 0.42);
     drawOuterRing(time, alpha, settled, 0, false);
   }
 
