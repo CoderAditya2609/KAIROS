@@ -6,6 +6,7 @@
     <title>K.A.I.R.O.S.</title>
     <link rel="stylesheet" href="css/base.css" />
     <link rel="stylesheet" href="css/hud.css" />
+    <link rel="stylesheet" href="css/ui.css" />
   </head>
   <body>
     <canvas id="stage" aria-hidden="true"></canvas>
@@ -44,15 +45,34 @@
 
       <div class="hud-bottom">
         <p class="message" id="message"></p>
+        <div class="lines" id="lines"></div>
+        <div class="chips" id="chips"></div>
         <p class="suggestion" id="suggestion">&ldquo;tell me what kind of day it is&rdquo;</p>
         <div class="hotkeys">
-          <span class="hotkey"><b>SPACE</b> to talk</span>
+          <span class="hotkey"><b>SPACE</b> hold to talk</span>
           <span class="hotkey"><b>C</b> text</span>
+          <span class="hotkey"><b>B</b> panel</span>
           <span class="hotkey"><b>V</b> voice: <i id="voiceName">&mdash;</i></span>
           <span class="hotkey"><b>M</b> mute</span>
         </div>
       </div>
     </div>
+
+    <form class="bar" id="bar" autocomplete="off">
+      <span class="bar-caret">&gt;</span>
+      <input id="barInput" type="text" placeholder="type a command..." aria-label="Text command" />
+      <span class="bar-hint">Enter sends, Esc closes</span>
+    </form>
+
+    <aside class="panel" id="panel" aria-hidden="true">
+      <header class="panel-head">
+        <p class="label">Backlog <span class="count" id="panelBacklogCount">0</span></p>
+        <button type="button" class="panel-close" id="panelClose" aria-label="Close panel">Esc</button>
+      </header>
+      <ul class="panel-list" id="panelBacklog"></ul>
+      <p class="label">Today</p>
+      <ul class="panel-list" id="panelPlan"></ul>
+    </aside>
 
     <ul class="bootlog" id="bootlog" aria-live="polite"></ul>
 

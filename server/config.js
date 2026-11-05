@@ -13,6 +13,7 @@ function readConfig() {
     rootDir,
     publicDir: join(rootDir, "public"),
     dataDir: join(rootDir, "data"),
+    exampleDir: join(rootDir, "data.example"),
     port: Number(process.env.PORT) || raw.port || 4747,
     debug: process.env.KAIROS_DEBUG === "1" ? true : raw.debug === true,
     name: raw.name || "Blaze",

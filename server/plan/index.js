@@ -174,7 +174,7 @@ export function buildPlan(input = {}) {
     return finish({
       dayType,
       dayKey,
-      blocks: [RECOVER_BLOCK],
+      blocks: [makeBlock(RECOVER_BLOCK.kind, RECOVER_BLOCK.label, { minutes: 0 })],
       capacity: 0,
       lines,
       mood,
@@ -207,7 +207,8 @@ function finish({ dayType, dayKey, blocks, capacity, lines, mood, backlog, perDa
   const days = planned > 0 ? Math.ceil(queue.length / Math.max(1, perDay)) : 0;
 
   if (dayType !== "vacation" && dayType !== "sick" && queue.length > 0) {
-    lines.push(`Backlog: ${queue.length} left. At ${perDay} per day that clears in ${days} days.`);
+    const dayWord = days === 1 ? "day" : "days";
+    lines.push(`Backlog: ${queue.length} left. At ${perDay} per day that clears in ${days} ${dayWord}.`);
   }
   if (energy <= 2 && (dayType === "school_day" || dayType === "off_day")) {
     lines.push("Low energy day. One block fewer, not zero.");

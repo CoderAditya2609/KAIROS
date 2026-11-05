@@ -10,6 +10,8 @@ const dom = {
   suggestion: el("suggestion"),
   voiceName: el("voiceName"),
   bootlog: el("bootlog"),
+  chips: el("chips"),
+  lines: el("lines"),
 };
 
 function showMessage(text) {
@@ -48,6 +50,28 @@ function renderSystems(providers) {
   }
 }
 
+function renderChips(chips, onPick) {
+  dom.chips.textContent = "";
+  for (const chip of chips || []) {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "chip";
+    button.textContent = chip.label;
+    button.addEventListener("click", () => onPick(chip.value));
+    dom.chips.appendChild(button);
+  }
+}
+
+function showLines(lines) {
+  dom.lines.textContent = "";
+  for (const line of lines || []) {
+    const p = document.createElement("p");
+    p.className = "line";
+    p.textContent = line;
+    dom.lines.appendChild(p);
+  }
+}
+
 export const hud = {
   setStatus(text, accent) {
     dom.statusText.textContent = text;
@@ -71,6 +95,9 @@ export const hud = {
     dom.voiceName.textContent = name || "\u2014";
   },
   showMessage,
+  renderChips,
+  clearChips: () => renderChips([], () => {}),
+  showLines,
   bootLine,
   bootDone() {
     dom.bootlog.classList.add("done");

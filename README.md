@@ -9,8 +9,9 @@ so KAIROS still works with no internet and no API keys.
 
 ## Status
 
-Sitting 1 of 5 — shell, look, orb, boot animation. The daily check-in, plan engine, AI layer and voice
-arrive in the sittings after this one (see `PROGRESS.md`).
+Sitting 2 of 5 done — shell, orb, boot, launcher, data store, plan engine, check-in, text commands
+and voice input/output. Still to come: the AI phrasing layer (sitting 3) and backlog polish (sitting 5).
+See `PROGRESS.md`.
 
 ## Run it
 
@@ -31,6 +32,21 @@ taskkill /FI "WINDOWTITLE eq KAIROS SERVER"
 ```
 
 `npm start` in a terminal stops with Ctrl+C.
+
+## Hotkeys
+
+| Key | What it does |
+| --- | --- |
+| `SPACE` | Hold to talk, release to send. If the mic is blocked, KAIROS says so and the text bar still works. |
+| `C` | Open the text bar. Enter sends, Esc closes. |
+| `B` | Slide-in panel: pending backlog and today's plan. Click a lecture to mark it done; click a block for the evening tick. |
+| `V` | Cycle the Windows voices; the name shows in the hotkey row. |
+| `M` | Mute or unmute spoken replies. |
+| `Esc` | Skip the boot animation, close the bar or panel, or stop a check-in. |
+
+Typed commands, all handled by code with no AI: `add backlog Physics | Rotational Motion | lectures 3 to 7`,
+`done 2`, `mood 3`, `energy 4`, `vacation`, `skip today`, `add exam Maths | 2026-11-20`,
+`show plan`, `show backlog`, `evening`.
 
 ## Keys
 

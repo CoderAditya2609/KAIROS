@@ -72,7 +72,7 @@ export function createStore({ dataDir, exampleDir }) {
   }
 
   async function writeDay(date, plan) {
-    await writeAtomic(join(daysDir, `${date}.json`), plan);
+    await writeAtomic(join(daysDir, `${date}.json`), JSON.stringify(plan, null, 2));
     return plan;
   }
 
